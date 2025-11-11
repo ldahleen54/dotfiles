@@ -9,8 +9,8 @@ export CONFIG_PATH="/home/luke/.config/hypr"
 cp -r $CONFIG_PATH/UserConfigs $REPO_PATH/hyprland/
 cp -r $CONFIG_PATH/monitors.conf $REPO_PATH/hyprland/
 echo "$CONFIG_PATH/monitors.conf"
+cp "$CONFIG_PATH/workspaces.conf" $REPO_PATH/hyprland/
 
-cd ..
 # git add hyprland/
 # git commit -m "update dot files"
 # git push
