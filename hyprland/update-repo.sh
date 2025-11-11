@@ -6,6 +6,7 @@
 # copy the config files to this repo to commit
 cp -r $CONFIG_PATH/UserConfigs $REPO_PATH/hyprland/
 cp -r $CONFIG_PATH/monitors.conf $REPO_PATH/hyprland/
+echo "$CONFIG_PATH/monitors.conf"
 
 cd ..
 git add hyprland/
