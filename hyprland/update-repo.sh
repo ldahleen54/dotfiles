@@ -3,7 +3,7 @@
 
 # set the variables
 export REPO_PATH="/run/media/luke/Storage/git/dotfiles"
-export CONFIG_PATH="~/.config/hypr"
+export CONFIG_PATH="/home/luke/.config/hypr"
 
 # copy the config files to this repo to commit
 cp -r $CONFIG_PATH/UserConfigs $REPO_PATH/hyprland/
