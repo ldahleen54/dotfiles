@@ -11,6 +11,6 @@ cp -r $CONFIG_PATH/monitors.conf $REPO_PATH/hyprland/
 echo "$CONFIG_PATH/monitors.conf"
 
 cd ..
-git add hyprland/
-git commit -m "update dot files"
-git push
+# git add hyprland/
+# git commit -m "update dot files"
+# git push
