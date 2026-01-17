@@ -1,0 +1,96 @@
+//* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
+/* Waybar Modules - Groups Modules */
+/* Basically created to reduce the lines in Waybar Modules bank */
+/* NOTE: This is only for Groups */
+{
+	// GROUPS
+	"group/app_drawer": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/menu",
+			"custom/light_dark",
+			"custom/file_manager",
+			"custom/tty",
+			"custom/browser",
+			"custom/settings",
+		]
+	},
+	"group/motherboard": {
+		"orientation": "horizontal",
+		"modules": [
+			"cpu",
+			"power-profiles-daemon",
+			"memory",
+			"temperature",
+			"disk",
+		]
+	},
+	"group/mobo_drawer": {
+		"orientation": "inherit",
+		"modules": [
+			"temperature",
+			"cpu",
+			"power-profiles-daemon",
+			"memory",
+			"disk",
+		]
+	},
+	"group/laptop": {
+		"orientation": "inherit",
+		"modules": [
+			"backlight",
+			"battery",
+		]
+	},
+	"group/audio": {
+		"orientation": "inherit",
+		"modules": [
+			"pulseaudio",
+			"pulseaudio#microphone",
+		]
+	},
+	"group/connections": {
+		"orientation": "inherit",
+		"modules": [
+			"network",
+			"bluetooth"
+		]
+	},
+	"group/status": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/power",
+			"custom/nightlight",
+			"custom/lock",
+			"keyboard-state",
+			"custom/keyboard",
+		]
+	},
+	"group/notify": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/swaync",
+			"custom/dot_update",
+		]
+	},
+	"group/power": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/power",
+			"custom/quit",
+			"custom/lock",
+			"custom/reboot"
+		]
+	},
+	// groups for vertical
+	"group/power#vert": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/power",
+			"custom/nightlight",
+			"custom/lock",
+			"custom/logout",
+			"custom/reboot"
+		]
+	},
+}
