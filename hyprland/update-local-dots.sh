@@ -11,3 +11,7 @@ cp monitors.conf $CONFIG_PATH
 cp workspaces.conf "$CONFIG_PATH" 
 cp -r ./configs $CONFIG_PATH
 cp ./waybar/ModulesGroups $WAYBAR_PATH
+cp ./waybar/ModulesCustom $WAYBAR_PATH
+cp "./waybar/style/[TOP] Default" $WAYBAR_PATH
+cp "./waybar/style.css" $WAYBAR_PATH
+cp "./waybar/scripts/color-clock.sh" $WAYBAR_PATH
