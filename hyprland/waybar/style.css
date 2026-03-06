@@ -215,7 +215,7 @@ tooltip label {
 
 #custom-colorclock.late {
     /* The color when the threshold is crossed */
-    color: yellow;
+    color: #AE8507;
 	font-weight: bold;
 }
 
