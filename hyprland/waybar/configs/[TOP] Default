@@ -25,13 +25,11 @@
 	"custom/separator#blank",
 	"custom/cava_mviz",
 	"custom/separator#blank",
-	"custom/playerctl",
 	"custom/separator#blank_2",
-	"hyprland/window",
 	],
 
 "modules-center": [
-	"group/app_drawer",
+	// "group/app_drawer",
 	"custom/separator#blank",
 	"group/notify",
 	"custom/separator#dot-line",
@@ -46,7 +44,6 @@
 
 "modules-right": [
 	"tray",
-	"network#speed",
 	"custom/separator#dot-line",
 	"group/mobo_drawer",
 	"custom/separator#line",  
