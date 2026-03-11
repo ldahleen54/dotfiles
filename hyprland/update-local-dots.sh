@@ -8,6 +8,7 @@ export WAYBAR_PATH="/home/luke/.config/waybar"
 # copy the config files
 cp -r ./UserConfigs $CONFIG_PATH
 cp monitors.conf $CONFIG_PATH
+cp monitors-swapped.conf $CONFIG_PATH
 cp workspaces.conf "$CONFIG_PATH" 
 cp -r ./configs $CONFIG_PATH
 cp ./waybar/ModulesGroups $WAYBAR_PATH
