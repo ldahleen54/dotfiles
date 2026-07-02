@@ -1,12 +1,12 @@
 # My dot files
 
-# Update the dots locally to match the repo
-1. Run JaKoolLit installer
+# Fresh setup
+1. Run JaKooLit installer
 2. Clone this repo
-3. cd hyprland
-4. ./update-local-dots.sh
+3. `git config core.hooksPath githooks` (enables the auto-apply hook below)
+4. `./hyprland/update-local-dots.sh`
 
-# Updating the dots to the repo
-1. Update dots in hyprland
-2. cd hyprland
-3. Use update-repo.sh to copy files into the repo for VC
+# Making changes
+1. Edit files in this repo (not in ~/.config)
+2. Commit — the post-commit hook runs update-local-dots.sh so the commit is applied locally
+3. To try something before committing, run `./hyprland/update-local-dots.sh` by hand

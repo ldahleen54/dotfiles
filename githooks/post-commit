@@ -1,0 +1,4 @@
+#!/bin/sh
+# Auto-apply committed dots to ~/.config (git runs this from the repo root)
+./hyprland/update-local-dots.sh
+echo "post-commit: dots applied locally"
