@@ -17,5 +17,8 @@ cp "./waybar/configs/[TOP] Default" $WAYBAR_PATH/configs
 cp "./waybar/style.css" $WAYBAR_PATH
 cp "./waybar/scripts/color-clock.sh" $WAYBAR_PATH/scripts
 
+# hypr scripts patched from stock (re-copy after a JaKooLit dots update)
+cp ./scripts/WaybarLayout.sh $CONFIG_PATH/scripts
+
 # user scripts (copying only — bisq-update never runs an update by itself)
 cp ../bin/bisq-update /home/luke/.local/bin/
