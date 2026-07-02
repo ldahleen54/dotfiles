@@ -1,0 +1,77 @@
+#!/bin/bash
+set -euo pipefail
+
+# Bisq installer/updater — downloads official release, verifies GPG sig, installs to /opt
+#
+# Usage: bisq-update [version]
+#   With no argument, offers the latest GitHub release (warns if <7 days old).
+#   Pass a version (e.g. "1.9.15") to pin exactly what gets installed.
+#
+# Safety: the signature is verified against the pinned fingerprint below in a
+# throwaway keyring — a "good signature" from any other key fails hard.
+# Fingerprint published at https://bisq.network/pubkey/E222AA02
+SIGNING_KEY_FPR="B493319F9F5A2BAF49FB99959D6EEF06AD304FA5"  # Alejandro García, current release signer
+INSTALL_DIR="/opt/bisq"
+MIN_AGE_DAYS=7
+
+TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
+cd "$TMP"
+
+if [[ $# -ge 1 ]]; then
+    TAG="v${1#v}"
+    echo "Installing pinned version: $TAG"
+else
+    RELEASE_JSON=$(curl -s https://api.github.com/repos/bisq-network/bisq/releases/latest)
+    TAG=$(grep -Po '"tag_name": "\K[^"]+' <<<"$RELEASE_JSON")
+    PUBLISHED=$(grep -Po '"published_at": "\K[^"]+' <<<"$RELEASE_JSON")
+    AGE_DAYS=$(( ($(date +%s) - $(date -d "$PUBLISHED" +%s)) / 86400 ))
+    echo "Latest Bisq release: $TAG (published ${AGE_DAYS} days ago)"
+    if (( AGE_DAYS < MIN_AGE_DAYS )); then
+        echo "WARNING: this release is less than ${MIN_AGE_DAYS} days old."
+        echo "Consider waiting — a compromised release is most dangerous before"
+        echo "the community has had time to notice."
+    fi
+    read -rp "Proceed with $TAG? [y/N] " ok
+    [[ "$ok" == "y" ]] || { echo "Aborting."; exit 1; }
+fi
+VER=${TAG#v}
+
+DEB="Bisq-64bit-${VER}.deb"
+BASE="https://github.com/bisq-network/bisq/releases/download/${TAG}"
+
+curl -fLO "${BASE}/${DEB}"
+curl -fLO "${BASE}/${DEB}.asc"
+
+# Throwaway keyring so nothing already in ~/.gnupg can satisfy the check;
+# --recv-keys by full fingerprint means gpg rejects a mismatched key itself
+export GNUPGHOME="$TMP/gnupg"
+mkdir -m 700 "$GNUPGHOME"
+gpg -q --keyserver hkps://keys.openpgp.org --recv-keys "$SIGNING_KEY_FPR"
+
+echo "Verifying signature against pinned key ${SIGNING_KEY_FPR}..."
+if ! gpg --status-fd 1 --verify "${DEB}.asc" "${DEB}" 2>/dev/null \
+        | grep -q "^\[GNUPG:\] VALIDSIG .*${SIGNING_KEY_FPR}"; then
+    echo "SIGNATURE VERIFICATION FAILED — not signed by the pinned Bisq key. Aborting." >&2
+    exit 1
+fi
+echo "Good signature from pinned Bisq signing key."
+
+# Extract .deb (it's just an ar archive; Bisq bundles its own JRE)
+ar x "$DEB"
+tar xf data.tar.*
+
+sudo rm -rf "$INSTALL_DIR"
+sudo mv opt/bisq "$INSTALL_DIR"
+
+# Desktop entry + launcher symlink
+sudo ln -sf "$INSTALL_DIR/bin/Bisq" /usr/local/bin/bisq
+sudo tee /usr/share/applications/bisq.desktop >/dev/null <<EOF
+[Desktop Entry]
+Name=Bisq
+Exec=/opt/bisq/bin/Bisq
+Icon=/opt/bisq/lib/Bisq.png
+Type=Application
+Categories=Finance;
+EOF
+
+echo "Bisq $VER installed. Launch with: bisq"

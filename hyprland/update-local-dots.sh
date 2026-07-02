@@ -16,3 +16,6 @@ cp ./waybar/ModulesCustom $WAYBAR_PATH
 cp "./waybar/configs/[TOP] Default" $WAYBAR_PATH/configs
 cp "./waybar/style.css" $WAYBAR_PATH
 cp "./waybar/scripts/color-clock.sh" $WAYBAR_PATH/scripts
+
+# user scripts (copying only — bisq-update never runs an update by itself)
+cp ../bin/bisq-update /home/luke/.local/bin/
